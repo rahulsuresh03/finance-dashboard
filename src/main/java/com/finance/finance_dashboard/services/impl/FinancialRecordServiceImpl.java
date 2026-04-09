@@ -59,6 +59,8 @@ public class FinancialRecordServiceImpl implements FinancialRecordService {
 
     @Override
     public List<FinancialRecord> getAllRecords(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
         return recordRepository.findByUserIdAndIsDeletedFalse(userId);
     }
 
@@ -84,4 +86,14 @@ public class FinancialRecordServiceImpl implements FinancialRecordService {
         record.setIsDeleted(true); // soft delete
         recordRepository.save(record);
     }
+
+    @Override
+    public void permanentDeleteRecord(Long id) {
+        FinancialRecord record = recordRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Record not found"));
+
+        recordRepository.deleteById(id);
+    }
+
+
 }

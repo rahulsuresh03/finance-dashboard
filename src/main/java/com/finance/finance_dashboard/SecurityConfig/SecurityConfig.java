@@ -46,10 +46,7 @@ public class SecurityConfig {
                         .requestMatchers("/auth/**", "/test/**","/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html").permitAll()
-                        .requestMatchers("/admin/**","/api/admin/dashboard/**").hasRole("ADMIN")
-                        .requestMatchers("/analyst/**").hasAnyRole("ANALYST", "ADMIN")
-                        .requestMatchers("/viewer/**").hasAnyRole("VIEWER", "ANALYST", "ADMIN")
-                        .anyRequest().denyAll()
+                        .anyRequest().authenticated()
                 ).exceptionHandling(ex -> ex
                 .accessDeniedHandler((request, response, accessDeniedException) -> {
                     response.setStatus(403);

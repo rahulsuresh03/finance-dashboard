@@ -16,4 +16,6 @@ public interface FinancialRecordService {
     FinancialRecord updateRecord(Long id, FinancialRecordRequestDTO dto);
 
     void deleteRecord(Long id);
+
+    void permanentDeleteRecord(Long id);
 }
